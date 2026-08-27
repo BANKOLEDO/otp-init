@@ -2,7 +2,10 @@ from src.core.database import _async_database_url
 
 
 def test_render_postgres_url_uses_asyncpg_and_translates_sslmode():
-    url = "postgresql://user:password@host:5432/database?sslmode=require"
+    url = (
+        "postgresql://user:password@host:5432/database?sslmode=require"
+        "&channel_binding=require"
+    )
 
     assert _async_database_url(url) == (
         "postgresql+asyncpg://user:password@host:5432/database?ssl=require"

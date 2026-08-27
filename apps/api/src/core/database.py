@@ -13,7 +13,11 @@ def _async_database_url(url: str) -> str:
         return url
 
     query = parse_qsl(parsed.query, keep_blank_values=True)
-    query = [("ssl" if key == "sslmode" else key, value) for key, value in query]
+    query = [
+        ("ssl" if key == "sslmode" else key, value)
+        for key, value in query
+        if key != "channel_binding"
+    ]
     return urlunsplit(
         (
             "postgresql+asyncpg",
