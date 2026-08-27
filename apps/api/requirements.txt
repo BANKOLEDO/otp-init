@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+pydantic-settings
+sqlalchemy[asyncio]
+aiosqlite
+structlog
+python-dotenv
+bcrypt
+python-multipart
+psutil
