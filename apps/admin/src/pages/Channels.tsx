@@ -11,6 +11,7 @@ import Lock from '@mui/icons-material/Lock';
 import { adminApi, type ChannelOverview } from '../services/api';
 import { useToast } from '../components/Toast';
 import { slideUp } from '../utils/animations';
+import { PageFrame } from '../components/layout/PageFrame';
 
 const channelMeta: Record<string, { icon: React.ReactNode; label: string; color: string }> = {
   whatsapp: { icon: <Chat sx={{ fontSize: 22 }} />, label: 'WhatsApp', color: '#25d366' },
@@ -46,8 +47,7 @@ export function Channels() {
   }
 
   return (
-    <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: 1200, mx: 'auto', animation: `${slideUp} 0.5s ease-out both` }}>
-      <Typography variant="h5" sx={{ fontWeight: 500, mb: 3 }}>Channels</Typography>
+    <PageFrame eyebrow="Delivery" title="Channels" description="Monitor delivery capacity and performance across every connected messaging channel.">
 
       <Grid container spacing={2.5}>
         {Object.entries(channels).map(([name, data], i) => {
@@ -103,6 +103,6 @@ export function Channels() {
           </Grid>
         )}
       </Grid>
-    </Box>
+    </PageFrame>
   );
 }

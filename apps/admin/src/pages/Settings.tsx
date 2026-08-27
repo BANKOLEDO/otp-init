@@ -18,6 +18,7 @@ import Tune from '@mui/icons-material/Tune';
 import { adminApi, type PlatformSettings } from '../services/api';
 import { useToast } from '../components/Toast';
 import { slideUp } from '../utils/animations';
+import { PageFrame } from '../components/layout/PageFrame';
 
 export function Settings() {
   const { toast } = useToast();
@@ -101,9 +102,7 @@ export function Settings() {
   ];
 
   return (
-    <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: 900, mx: 'auto', animation: `${slideUp} 0.5s ease-out both` }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h5" sx={{ fontWeight: 500 }}>Settings</Typography>
+    <PageFrame eyebrow="Configuration" title="Settings" description="Shape the platform defaults that govern verification, security, and channel behavior." maxWidth={1000} actions={
         <Button
           variant="contained"
           startIcon={saving ? <CircularProgress size={16} sx={{ color: '#fff' }} /> : <Save />}
@@ -113,7 +112,7 @@ export function Settings() {
         >
           Save Changes
         </Button>
-      </Box>
+      }>
 
       {sections.map((section, si) => (
         <Card key={section.title} sx={{ mb: si < sections.length - 1 ? 2.5 : 0, animation: `${slideUp} 0.5s ease-out ${si * 100 + 80}ms both` }}>
@@ -162,6 +161,6 @@ export function Settings() {
           </CardContent>
         </Card>
       ))}
-    </Box>
+    </PageFrame>
   );
 }

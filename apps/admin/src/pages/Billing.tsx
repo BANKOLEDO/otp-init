@@ -19,6 +19,7 @@ import Cancel from '@mui/icons-material/Cancel';
 import { adminApi, type BillingData } from '../services/api';
 import { useToast } from '../components/Toast';
 import { slideUp } from '../utils/animations';
+import { MetricCard, PageFrame } from '../components/layout/PageFrame';
 
 export function Billing() {
   const { toast } = useToast();
@@ -62,32 +63,16 @@ export function Billing() {
   const transactions = billing?.transactions ?? [];
 
   return (
-    <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: 1200, mx: 'auto', animation: `${slideUp} 0.5s ease-out both` }}>
-      <Typography variant="h5" sx={{ fontWeight: 500, mb: 3 }}>Billing</Typography>
-
-      <Grid container spacing={2.5}>
+    <PageFrame eyebrow="Revenue" title="Billing" description="Track recurring revenue, plan mix, and the latest payment activity in one clear view.">
+      <Grid container spacing={{ xs: 2, sm: 2.5 }}>
         {kpiCards.map((kpi, i) => (
           <Grid xs={12} sm={6} md={3} key={kpi.label}>
-            <Card sx={{ height: '100%', animation: `${slideUp} 0.5s ease-out ${i * 80}ms both` }}>
-              <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Box sx={{
-                  width: 44, height: 44, borderRadius: 2.5,
-                  bgcolor: 'action.selected', display: 'flex',
-                  alignItems: 'center', justifyContent: 'center', color: 'primary.main',
-                }}>
-                  {kpi.icon}
-                </Box>
-                <Box>
-                  <Typography variant="caption" color="text.secondary">{kpi.label}</Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 500, lineHeight: 1.2 }}>{kpi.value}</Typography>
-                </Box>
-              </CardContent>
-            </Card>
+            <MetricCard label={kpi.label} value={kpi.value} icon={kpi.icon} color={['#e8590c', '#25d366', '#0088cc', '#ef4444'][i]} delay={i * 80} />
           </Grid>
         ))}
       </Grid>
 
-      <Grid container spacing={2.5} sx={{ mt: 0.5 }}>
+      <Grid container spacing={{ xs: 2, sm: 2.5 }} sx={{ mt: { xs: 2, sm: 2.5 } }}>
         <Grid xs={12} md={6}>
             <Card sx={{ height: '100%', animation: `${slideUp} 0.5s ease-out 320ms both` }}>
               <CardContent>
@@ -164,6 +149,6 @@ export function Billing() {
           </Card>
         </Grid>
       </Grid>
-    </Box>
+    </PageFrame>
   );
 }

@@ -15,6 +15,7 @@ import Search from '@mui/icons-material/Search';
 import { adminApi, type Tenant } from '../services/api';
 import { useToast } from '../components/Toast';
 import { slideUp } from '../utils/animations';
+import { PageFrame } from '../components/layout/PageFrame';
 
 const planColor: Record<string, { bg: string; fg: string }> = {
   free: { bg: 'action.hover', fg: 'text.secondary' },
@@ -59,8 +60,7 @@ export function Tenants() {
   }
 
   return (
-    <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: 1200, mx: 'auto', animation: `${slideUp} 0.5s ease-out both` }}>
-      <Typography variant="h5" sx={{ fontWeight: 500, mb: 3 }}>Tenants</Typography>
+    <PageFrame eyebrow="Workspace" title="Tenants" description="Search and review every workspace connected to your verification infrastructure.">
 
       <TextField
         fullWidth
@@ -111,6 +111,6 @@ export function Tenants() {
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+    </PageFrame>
   );
 }

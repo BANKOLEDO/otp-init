@@ -19,6 +19,7 @@ import Search from '@mui/icons-material/Search';
 import { adminApi, type LogEntry } from '../services/api';
 import { useToast } from '../components/Toast';
 import { slideUp } from '../utils/animations';
+import { PageFrame } from '../components/layout/PageFrame';
 
 const levelColor: Record<string, { bg: string; fg: string }> = {
   error: { bg: 'error.light', fg: 'error.main' },
@@ -63,8 +64,7 @@ export function Logs() {
   }
 
   return (
-    <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: 1200, mx: 'auto', animation: `${slideUp} 0.5s ease-out both` }}>
-      <Typography variant="h5" sx={{ fontWeight: 500, mb: 3 }}>Logs</Typography>
+    <PageFrame eyebrow="Observability" title="Logs" description="Filter the latest platform events and keep an eye on delivery behavior as it happens.">
 
       <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap', animation: `${slideUp} 0.5s ease-out 80ms both` }}>
         <TextField
@@ -135,6 +135,6 @@ export function Logs() {
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+    </PageFrame>
   );
 }

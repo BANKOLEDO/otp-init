@@ -10,7 +10,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Chip from '@mui/material/Chip';
-import useTheme from '@mui/material/styles/useTheme';
 import People from '@mui/icons-material/People';
 import AttachMoney from '@mui/icons-material/AttachMoney';
 import VerifiedUser from '@mui/icons-material/VerifiedUser';
@@ -18,6 +17,7 @@ import Speed from '@mui/icons-material/Speed';
 import { adminApi, type AdminStats, type SystemHealth, type LogEntry } from '../services/api';
 import { useToast } from '../components/Toast';
 import { slideUp } from '../utils/animations';
+import { MetricCard, PageFrame } from '../components/layout/PageFrame';
 
 const statsIcons: Record<string, React.ReactNode> = {
   total_tenants: <People sx={{ fontSize: 22 }} />,
@@ -27,7 +27,6 @@ const statsIcons: Record<string, React.ReactNode> = {
 };
 
 export function Overview() {
-  const theme = useTheme();
   const { toast } = useToast();
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [health, setHealth] = useState<SystemHealth | null>(null);
@@ -69,32 +68,16 @@ export function Overview() {
     : [];
 
   return (
-    <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: 1200, mx: 'auto', animation: `${slideUp} 0.5s ease-out both` }}>
-      <Typography variant="h5" sx={{ fontWeight: 500, mb: 3 }}>Overview</Typography>
-
-      <Grid container spacing={2.5}>
+    <PageFrame title="Overview" description="A live read on tenants, delivery health, and verification activity across your platform.">
+      <Grid container spacing={{ xs: 2, sm: 2.5 }}>
         {statCards.map((s, i) => (
           <Grid xs={12} sm={6} md={3} key={s.key}>
-            <Card sx={{ height: '100%', animation: `${slideUp} 0.5s ease-out ${i * 80}ms both` }}>
-              <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Box sx={{
-                  width: 44, height: 44, borderRadius: 2.5,
-                  bgcolor: 'action.selected', display: 'flex',
-                  alignItems: 'center', justifyContent: 'center', color: 'primary.main',
-                }}>
-                  {statsIcons[s.key]}
-                </Box>
-                <Box>
-                  <Typography variant="caption" color="text.secondary">{s.label}</Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 500, lineHeight: 1.2 }}>{s.value}</Typography>
-                </Box>
-              </CardContent>
-            </Card>
+            <MetricCard label={s.label} value={s.value} icon={statsIcons[s.key]} color={['#e8590c', '#25d366', '#0088cc', '#3a76f0'][i]} delay={i * 80} />
           </Grid>
         ))}
       </Grid>
 
-      <Grid container spacing={2.5} sx={{ mt: 0.5 }}>
+      <Grid container spacing={{ xs: 2, sm: 2.5 }} sx={{ mt: { xs: 2, sm: 2.5 } }}>
         <Grid xs={12} md={6}>
           <Card sx={{ height: '100%', animation: `${slideUp} 0.5s ease-out 320ms both` }}>
             <CardContent>
@@ -155,6 +138,6 @@ export function Overview() {
           </Card>
         </Grid>
       </Grid>
-    </Box>
+    </PageFrame>
   );
 }
