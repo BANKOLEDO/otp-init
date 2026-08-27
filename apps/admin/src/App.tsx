@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { ToastProvider } from './components/Toast';
-import { CookieConsent } from './components/CookieConsent';
 import { AuthProvider } from './components/AuthProvider';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
@@ -19,7 +18,7 @@ export default function App() {
       <AuthProvider>
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Header />
-          <Box component="main" sx={{ flex: 1 }}>
+          <Box component="main" sx={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
             <Routes>
               <Route path="/" element={<Overview />} />
               <Route path="/tenants" element={<Tenants />} />
@@ -31,7 +30,6 @@ export default function App() {
             </Routes>
           </Box>
           <Footer />
-          <CookieConsent />
         </Box>
       </AuthProvider>
     </ToastProvider>

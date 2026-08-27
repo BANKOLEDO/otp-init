@@ -38,9 +38,15 @@ const shared: ThemeOptions = {
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 20,
+          borderRadius: 16,
           border: '1px solid var(--hairline, rgba(26,24,22,0.10))',
-          boxShadow: 'none',
+          boxShadow: '0 8px 24px rgba(26,24,22,0.04)',
+          transition: 'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+            boxShadow: '0 14px 32px rgba(26,24,22,0.08)',
+            borderColor: 'rgba(232,89,12,0.25)',
+          },
         },
       },
     },
@@ -61,6 +67,11 @@ const shared: ThemeOptions = {
             '&.Mui-focused fieldset': { borderColor: '#e8590c', borderWidth: 1 },
           },
         },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: { paddingTop: 14, paddingBottom: 14 },
       },
     },
     MuiChip: {
