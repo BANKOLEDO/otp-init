@@ -151,7 +151,7 @@ export function Landing() {
             mx: 'auto',
             maxWidth: 1280,
             px: { xs: 3, sm: 5 },
-            pt: { xs: 14, lg: 16 },
+            pt: { xs: 10, lg: 16 },
             pb: { xs: 12, lg: 16 },
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', lg: '1.15fr 0.85fr' },
@@ -283,25 +283,25 @@ export function Landing() {
             <Table>
               <TableHead>
                 <TableRow sx={{ bgcolor: rowBg }}>
-                  <TableCell sx={{ fontWeight: 500, fontSize: 13, color: mutedText, py: 2, px: 3 }}>Feature</TableCell>
-                  <TableCell sx={{ fontWeight: 500, fontSize: 13, color: mutedText, py: 2, px: 3 }}>SMS</TableCell>
-                  <TableCell sx={{ fontWeight: 500, fontSize: 13, color: 'primary.main', py: 2, px: 3 }}>otp-Init</TableCell>
+                  <TableCell sx={{ fontWeight: 500, fontSize: { xs: 11, sm: 13 }, color: mutedText, py: { xs: 1.5, sm: 2 }, px: { xs: 1.5, sm: 3 } }}>Feature</TableCell>
+                  <TableCell sx={{ fontWeight: 500, fontSize: { xs: 11, sm: 13 }, color: mutedText, py: { xs: 1.5, sm: 2 }, px: { xs: 1.5, sm: 3 } }}>SMS</TableCell>
+                  <TableCell sx={{ fontWeight: 500, fontSize: { xs: 11, sm: 13 }, color: 'primary.main', py: { xs: 1.5, sm: 2 }, px: { xs: 1.5, sm: 3 } }}>otp-Init</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {comparisonRows.map((row) => (
                   <TableRow key={row.feature} sx={{ '&:last-child td': { borderBottom: 0 } }}>
-                    <TableCell sx={{ fontWeight: 500, fontSize: 14, py: 2, px: 3 }}>{row.feature}</TableCell>
-                    <TableCell sx={{ py: 2, px: 3 }}>
-                      <Stack direction="row" spacing={1} alignItems="center">
-                        <Cancel sx={{ fontSize: 16, color: 'error.main' }} />
-                        <Typography variant="body2" sx={{ fontSize: 14, color: mutedText }}>{row.sms}</Typography>
+                    <TableCell sx={{ fontWeight: 500, fontSize: { xs: 12, sm: 14 }, py: { xs: 1.5, sm: 2 }, px: { xs: 1.5, sm: 3 } }}>{row.feature}</TableCell>
+                    <TableCell sx={{ py: { xs: 1.5, sm: 2 }, px: { xs: 1.5, sm: 3 } }}>
+                      <Stack direction="row" spacing={0.5} alignItems="center">
+                        <Cancel sx={{ fontSize: { xs: 14, sm: 16 }, color: 'error.main', flexShrink: 0 }} />
+                        <Typography variant="body2" sx={{ fontSize: { xs: 12, sm: 14 }, color: mutedText }}>{row.sms}</Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell sx={{ py: 2, px: 3 }}>
-                      <Stack direction="row" spacing={1} alignItems="center">
-                        <CheckCircle sx={{ fontSize: 16, color: 'success.main' }} />
-                        <Typography variant="body2" sx={{ fontSize: 14, fontWeight: 500 }}>{row.otp}</Typography>
+                    <TableCell sx={{ py: { xs: 1.5, sm: 2 }, px: { xs: 1.5, sm: 3 } }}>
+                      <Stack direction="row" spacing={0.5} alignItems="center">
+                        <CheckCircle sx={{ fontSize: { xs: 14, sm: 16 }, color: 'success.main', flexShrink: 0 }} />
+                        <Typography variant="body2" sx={{ fontSize: { xs: 12, sm: 14 }, fontWeight: 500 }}>{row.otp}</Typography>
                       </Stack>
                     </TableCell>
                   </TableRow>

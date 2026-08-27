@@ -31,6 +31,7 @@ import Circle from '@mui/icons-material/Circle';
 import Warning from '@mui/icons-material/Warning';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 import useTheme from '@mui/material/styles/useTheme';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
 import { api, type DashboardStats, type ChannelStatus, type RecentVerification } from '../services/api';
 
@@ -89,16 +90,16 @@ const getChannelColor = (ch: string) => {
 
 const statCard = (label: string, value: string, icon: React.ReactNode, color: string, isDark: boolean) => (
   <Box sx={{
-    border: '1px solid', borderColor: 'divider', borderRadius: 3, p: 3,
+    border: '1px solid', borderColor: 'divider', borderRadius: 3, p: 2.75, height: '100%',
     bgcolor: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)',
     transition: 'border-color 0.2s', '&:hover': { borderColor: color },
   }}>
-    <Stack direction="row" alignItems="center" spacing={2}>
-      <Avatar sx={{ bgcolor: `${color}12`, color, width: 44, height: 44 }}>{icon}</Avatar>
-      <Box>
-        <Typography sx={{ fontSize: 12, color: 'text.secondary', fontWeight: 500, mb: 0.25 }}>{label}</Typography>
-        <Typography sx={{ fontSize: '1.65rem', fontWeight: 500, letterSpacing: '-0.03em' }}>{value}</Typography>
+    <Stack direction="row" alignItems="center" spacing={1.5}>
+      <Box sx={{ width: 32, height: 32, borderRadius: '10px', bgcolor: `${color}14`, color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        {icon}
       </Box>
+      <Typography sx={{ fontSize: { xs: 13, md: 12 }, fontWeight: 500, color: 'text.secondary', lineHeight: 1.15, flex: 1 }}>{label}</Typography>
+      <Typography sx={{ fontSize: { xs: '1.35rem', sm: '1.5rem', md: '1.35rem' }, fontWeight: 500, letterSpacing: '-0.03em', lineHeight: 1, whiteSpace: 'nowrap' }}>{value}</Typography>
     </Stack>
   </Box>
 );
@@ -106,6 +107,7 @@ const statCard = (label: string, value: string, icon: React.ReactNode, color: st
 export function Dashboard() {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const subtleText = theme.palette.text.secondary;
   const tc = (l: string, d: string) => (isDark ? d : l);
 
@@ -144,7 +146,7 @@ export function Dashboard() {
 
       <Container maxWidth="lg" sx={{ py: 5 }}>
         {/* Header */}
-        <Stack direction="row" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 5 }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'flex-start' }} spacing={2} sx={{ mb: 5 }}>
           <Box>
             <Typography variant="h1" sx={{ fontSize: { xs: '1.75rem', md: '2.25rem' }, fontWeight: 500, letterSpacing: '-0.035em', mb: 0.5 }}>
               Public Dashboard
@@ -172,16 +174,16 @@ export function Dashboard() {
 
         {/* Stats */}
         <Grid container spacing={2} sx={{ mb: 5 }}>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             {statCard('Total OTPs', stats.total_verifications.toLocaleString(), <VpnKey sx={{ fontSize: 20 }} />, '#e8590c', isDark)}
           </Grid>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             {statCard('Success Rate', `${stats.success_rate.toFixed(1)}%`, <CheckCircle sx={{ fontSize: 20 }} />, '#25d366', isDark)}
           </Grid>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             {statCard('Active Channels', String(stats.active_channels), <Speed sx={{ fontSize: 20 }} />, '#0088cc', isDark)}
           </Grid>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             {statCard('Avg Response', `${stats.avg_response_time.toFixed(1)}s`, <Timer sx={{ fontSize: 20 }} />, '#3a76f0', isDark)}
           </Grid>
         </Grid>
@@ -245,6 +247,42 @@ export function Dashboard() {
             <Typography sx={{ fontSize: 14, fontWeight: 500 }}>Recent Verifications</Typography>
             <Typography sx={{ fontSize: 12, color: 'text.secondary' }}>{recent.length} entries</Typography>
           </Stack>
+
+          {isMobile ? (
+            <Stack spacing={1.5}>
+              {recent.map((v) => (
+                <Box key={v.id} sx={{
+                  border: '1px solid', borderColor: 'divider', borderRadius: 3, p: 2.5,
+                  bgcolor: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)',
+                }}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1.5}>
+                    <Typography sx={{ fontSize: 14, fontFamily: 'monospace', fontWeight: 500 }}>{v.phone}</Typography>
+                    <Chip
+                      icon={v.verified ? <CheckIcon sx={{ fontSize: 12 }} /> : <Warning sx={{ fontSize: 12 }} />}
+                      label={v.verified ? 'Verified' : 'Failed'}
+                      size="small"
+                      sx={{
+                        borderRadius: 999, fontSize: 11, fontWeight: 500,
+                        bgcolor: v.verified ? 'rgba(37,211,102,0.1)' : 'rgba(239,68,68,0.1)',
+                        color: v.verified ? '#25d366' : '#ef4444',
+                        border: `1px solid ${v.verified ? 'rgba(37,211,102,0.2)' : 'rgba(239,68,68,0.2)'}`,
+                        '& .MuiChip-icon': { color: 'inherit' },
+                      }}
+                    />
+                  </Stack>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1.5} sx={{ mt: 1.5 }}>
+                    <Stack direction="row" alignItems="center" spacing={1}>
+                      <Box sx={{ color: getChannelColor(v.channel), display: 'flex' }}>{getChannelIcon(v.channel)}</Box>
+                      <Typography sx={{ fontSize: 13, textTransform: 'capitalize', color: 'text.secondary' }}>{v.channel}</Typography>
+                    </Stack>
+                    <Typography sx={{ fontSize: 12, color: 'text.disabled' }}>
+                      {v.attempts} attempt{v.attempts !== 1 && 's'} · {new Date(v.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </Typography>
+                  </Stack>
+                </Box>
+              ))}
+            </Stack>
+          ) : (
           <TableContainer sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 3, overflow: 'hidden' }}>
             <Table>
               <TableHead>
@@ -291,6 +329,7 @@ export function Dashboard() {
               </TableBody>
             </Table>
           </TableContainer>
+          )}
         </Box>
 
         {/* Success rate bar */}
