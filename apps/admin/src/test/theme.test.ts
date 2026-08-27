@@ -28,9 +28,9 @@ describe('saas theme', () => {
     expect(btn.borderRadius).toBe(999);
   });
 
-  it('card border radius is 16', () => {
+  it('card border radius is 20', () => {
     const card = lightTheme.components?.MuiCard?.styleOverrides?.root as any;
-    expect(card.borderRadius).toBe(16);
+    expect(card.borderRadius).toBe(20);
   });
 
   it('h1 has negative letter spacing', () => {

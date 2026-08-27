@@ -21,6 +21,8 @@ export function PageFrame({ eyebrow = 'Control center', title, description, acti
         mx: 'auto',
         px: { xs: 2, sm: 3, lg: 4 },
         py: { xs: 3, sm: 4, lg: 5 },
+        backgroundImage: 'radial-gradient(circle, rgba(26,24,22,0.12) 1px, transparent 1px)',
+        backgroundSize: '20px 20px',
         animation: `${slideUp} 0.5s ease-out both`,
       }}
     >
@@ -68,10 +70,10 @@ export function MetricCard({ label, value, icon, color, delay = 0 }: MetricCardP
         borderColor: 'divider',
         borderRadius: 3,
         bgcolor: 'background.paper',
-        boxShadow: '0 8px 24px rgba(26,24,22,0.04)',
+        boxShadow: 'none',
         animation: `${slideUp} 0.5s ease-out ${delay}ms both`,
-        transition: 'transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease',
-        '&:hover': { transform: 'translateY(-3px)', borderColor: color, boxShadow: '0 14px 30px rgba(26,24,22,0.08)' },
+        transition: 'border-color 180ms ease, background-color 180ms ease',
+        '&:hover': { borderColor: color, bgcolor: `${color}08` },
       }}
     >
       <Stack direction="row" alignItems="center" spacing={1.5} sx={{ height: '100%' }}>

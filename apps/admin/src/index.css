@@ -8,7 +8,7 @@ body {
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f0;
+  background-color: #ffffff;
   background-image: radial-gradient(rgba(26,24,22,0.08) 1px, transparent 1px);
   background-size: 22px 22px;
   color: #1a1816;
@@ -32,7 +32,7 @@ body {
 }
 
 body[data-theme="dark"] {
-  background: #111110;
+  background: #0e0e0e;
   color: #eeede8;
 }
 

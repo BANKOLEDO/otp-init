@@ -64,13 +64,13 @@ export function Billing() {
 
   return (
     <PageFrame eyebrow="Revenue" title="Billing" description="Track recurring revenue, plan mix, and the latest payment activity in one clear view.">
-      <Grid container spacing={{ xs: 2, sm: 2.5 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))', md: 'repeat(4, minmax(0, 1fr))' }, gap: { xs: 2, sm: 2.5 } }}>
         {kpiCards.map((kpi, i) => (
-          <Grid xs={12} sm={6} md={3} key={kpi.label}>
+          <Box key={kpi.label}>
             <MetricCard label={kpi.label} value={kpi.value} icon={kpi.icon} color={['#e8590c', '#25d366', '#0088cc', '#ef4444'][i]} delay={i * 80} />
-          </Grid>
+          </Box>
         ))}
-      </Grid>
+      </Box>
 
       <Grid container spacing={{ xs: 2, sm: 2.5 }} sx={{ mt: { xs: 2, sm: 2.5 } }}>
         <Grid xs={12} md={6}>

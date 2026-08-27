@@ -38,15 +38,9 @@ const shared: ThemeOptions = {
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 16,
+          borderRadius: 20,
           border: '1px solid var(--hairline, rgba(26,24,22,0.10))',
-          boxShadow: '0 8px 24px rgba(26,24,22,0.04)',
-          transition: 'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease',
-          '&:hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: '0 14px 32px rgba(26,24,22,0.08)',
-            borderColor: 'rgba(232,89,12,0.25)',
-          },
+          boxShadow: 'none',
         },
       },
     },

@@ -69,13 +69,13 @@ export function Overview() {
 
   return (
     <PageFrame title="Overview" description="A live read on tenants, delivery health, and verification activity across your platform.">
-      <Grid container spacing={{ xs: 2, sm: 2.5 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))', md: 'repeat(4, minmax(0, 1fr))' }, gap: { xs: 2, sm: 2.5 } }}>
         {statCards.map((s, i) => (
-          <Grid xs={12} sm={6} md={3} key={s.key}>
+          <Box key={s.key}>
             <MetricCard label={s.label} value={s.value} icon={statsIcons[s.key]} color={['#e8590c', '#25d366', '#0088cc', '#3a76f0'][i]} delay={i * 80} />
-          </Grid>
+          </Box>
         ))}
-      </Grid>
+      </Box>
 
       <Grid container spacing={{ xs: 2, sm: 2.5 }} sx={{ mt: { xs: 2, sm: 2.5 } }}>
         <Grid xs={12} md={6}>
