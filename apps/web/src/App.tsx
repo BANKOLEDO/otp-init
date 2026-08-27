@@ -9,6 +9,7 @@ import { Landing } from './pages/Landing';
 import { Verify } from './pages/Verify';
 import { Dashboard } from './pages/Dashboard';
 import { Docs } from './pages/Docs';
+import { NotFound } from './pages/NotFound';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="/verify" element={<Verify />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/docs" element={<Docs />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Box>
         <Footer />
