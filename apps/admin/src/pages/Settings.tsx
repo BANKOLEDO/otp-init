@@ -128,9 +128,9 @@ export function Settings() {
               <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>{section.title}</Typography>
             </Box>
 
-            <Grid container spacing={2.5}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))' }, gap: { xs: 2, sm: 2.5 } }}>
               {section.fields.map((field) => (
-                <Grid xs={12} sm={6} key={field.key}>
+                <Box key={field.key}>
                   {field.type === 'select' ? (
                     <FormControl fullWidth>
                       <InputLabel>{field.label}</InputLabel>
@@ -155,9 +155,9 @@ export function Settings() {
                       sx={{ '& .MuiOutlinedInput-root': { borderRadius: 2 } }}
                     />
                   )}
-                </Grid>
+                </Box>
               ))}
-            </Grid>
+            </Box>
           </CardContent>
         </Card>
       ))}

@@ -72,8 +72,8 @@ export function Billing() {
         ))}
       </Box>
 
-      <Grid container spacing={{ xs: 2, sm: 2.5 }} sx={{ mt: { xs: 2, sm: 2.5 } }}>
-        <Grid xs={12} md={6}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, minmax(0, 1fr))' }, gap: { xs: 2, sm: 2.5 }, mt: { xs: 2, sm: 2.5 } }}>
+        <Box>
             <Card sx={{ height: '100%', animation: `${slideUp} 0.5s ease-out 320ms both` }}>
               <CardContent>
                 <Typography variant="subtitle1" sx={{ fontWeight: 500, mb: 2 }}>Plan Distribution</Typography>
@@ -101,9 +101,9 @@ export function Billing() {
               )}
             </CardContent>
           </Card>
-        </Grid>
+        </Box>
 
-        <Grid xs={12} md={6}>
+        <Box>
             <Card sx={{ height: '100%', animation: `${slideUp} 0.5s ease-out 400ms both` }}>
               <CardContent>
                 <Typography variant="subtitle1" sx={{ fontWeight: 500, mb: 2 }}>Recent Transactions</Typography>
@@ -147,8 +147,8 @@ export function Billing() {
               </TableContainer>
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </PageFrame>
   );
 }

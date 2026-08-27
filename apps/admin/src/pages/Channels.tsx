@@ -49,11 +49,11 @@ export function Channels() {
   return (
     <PageFrame eyebrow="Delivery" title="Channels" description="Monitor delivery capacity and performance across every connected messaging channel.">
 
-      <Grid container spacing={2.5}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))', md: 'repeat(3, minmax(0, 1fr))' }, gap: { xs: 2, sm: 2.5 } }}>
         {Object.entries(channels).map(([name, data], i) => {
           const meta = channelMeta[name] || { icon: null, label: name, color: '#666' };
           return (
-            <Grid xs={12} sm={6} md={4} key={name}>
+            <Box key={name}>
               <Card sx={{ height: '100%', animation: `${slideUp} 0.5s ease-out ${i * 80}ms both` }}>
                 <CardContent>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
@@ -77,32 +77,32 @@ export function Channels() {
                     </Box>
                   </Box>
 
-                  <Grid container spacing={2}>
+                  <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 2 }}>
                     {[
                       { label: 'Instances', value: (data.instances ?? 0).toLocaleString() },
                       { label: 'Messages Today', value: (data.messages_today ?? 0).toLocaleString() },
                       { label: 'Success Rate', value: `${data.success_rate ?? 0}%` },
                       { label: 'Avg Latency', value: `${data.avg_latency ?? 0}ms` },
                     ].map((stat) => (
-                      <Grid xs={6} sm={6} key={stat.label}>
+                      <Box key={stat.label}>
                         <Box sx={{ py: 1 }}>
                           <Typography variant="caption" color="text.disabled">{stat.label}</Typography>
                           <Typography variant="body1" sx={{ fontWeight: 500 }}>{stat.value}</Typography>
                         </Box>
-                      </Grid>
+                      </Box>
                     ))}
-                  </Grid>
+                  </Box>
                 </CardContent>
               </Card>
-            </Grid>
+            </Box>
           );
         })}
         {Object.keys(channels).length === 0 && (
-          <Grid xs={12}>
+          <Box>
             <Typography variant="body2" color="text.disabled" sx={{ textAlign: 'center', py: 4 }}>No channel data</Typography>
-          </Grid>
+          </Box>
         )}
-      </Grid>
+      </Box>
     </PageFrame>
   );
 }
