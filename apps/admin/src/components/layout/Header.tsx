@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -37,11 +37,27 @@ export function Header() {
   const { mode, toggle: toggleMode } = useThemeMode();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const { setApiKey } = useAuth();
 
+  useEffect(() => {
+    if (isDesktop) setMobileOpen(false);
+  }, [isDesktop]);
+
+  useEffect(() => {
+    const handlePointerDown = (event: PointerEvent) => {
+      if (mobileOpen && headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setMobileOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [mobileOpen]);
+
   return (
-    <Box sx={{ position: 'sticky', top: 0, zIndex: 1100, px: { xs: 1.5, sm: 3 }, pt: 1.5 }}>
+    <Box ref={headerRef} sx={{ position: 'sticky', top: 0, zIndex: 1100, px: { xs: 1.5, sm: 3 }, pt: 1.5 }}>
       <Box
         sx={{
           maxWidth: 1200, mx: 'auto',
