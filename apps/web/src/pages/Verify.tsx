@@ -676,7 +676,9 @@ export function Verify() {
                       color: theme.palette.text.primary,
                     }}
                   >
-                    Open {CHANNELS.find((c) => c.id === channel)?.label} to get your code
+                    {verification.delivery_status === 'sent'
+                      ? 'Your verification code was sent'
+                      : `Open ${CHANNELS.find((c) => c.id === channel)?.label} to get your code`}
                   </Typography>
                   <Typography
                     variant="body2"
@@ -687,11 +689,13 @@ export function Verify() {
                       mt: 0.5,
                     }}
                   >
-                    The bot will send you a verification code automatically
+                    {verification.delivery_status === 'sent'
+                      ? 'Check your Signal messages for the code.'
+                      : 'Use the link below to continue manually.'}
                   </Typography>
                 </Box>
 
-                <Button
+                {verification.delivery_status !== 'sent' && <Button
                   fullWidth
                   variant="contained"
                   onClick={() => window.open(verification.deep_link, '_blank')}
@@ -717,7 +721,7 @@ export function Verify() {
                 >
                   Open{' '}
                   {CHANNELS.find((c) => c.id === channel)?.label}
-                </Button>
+                </Button>}
 
                 <TextField
                   fullWidth

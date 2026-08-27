@@ -133,7 +133,9 @@ cd otp-init
               <CodeBlock filename=".env" code={`# Pick one:
 TELEGRAM_BOT_TOKEN=123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
 WHATSAPP_TOKEN=your-whatsapp-business-token
-SIGNAL_PHONE=+14155550123`} />
+SIGNAL_PHONE=+2348012345678
+SIGNAL_CLI_PATH=signal-cli
+SIGNAL_CLI_TIMEOUT=30`} />
 
               <Typography sx={{ fontWeight: 500, fontSize: 14, mb: 1 }}>3. Install the SDK in your app</Typography>
               <CodeBlock filename="terminal" code="npm install @otp-init/sdk" />
@@ -205,7 +207,8 @@ if (result.verified) {
   "verification_id": "uuid",
   "deep_link": "https://t.me/bot?start=uuid",
   "message_preview": "",
-  "expires_at": "2026-08-27T23:00:00Z"
+  "expires_at": "2026-08-27T23:00:00Z",
+  "delivery_status": "sent"
 }`} />
 
               {/* Verify Code */}
@@ -280,7 +283,7 @@ if (result.verified) {
               {[
                 { name: 'WhatsApp', color: '#25d366', desc: 'Free delivery via the WhatsApp Business API. Requires a Meta Business account and phone number.', setup: ['Create a Meta Business account at business.facebook.com', 'Set up a WhatsApp Business API instance', 'Configure the phone number for verification', 'Connect via POST /channels/whatsapp/connect'] },
                 { name: 'Telegram', color: '#0088cc', desc: 'Instant delivery through a Telegram bot. No SMS costs or carrier dependencies.', setup: ['Create a bot via @BotFather on Telegram', 'Copy the bot token', 'Configure in your otp-Init settings', 'Connect via POST /channels/telegram/connect'] },
-                { name: 'Signal', color: '#3a76f0', desc: 'End-to-end encrypted delivery. Most secure channel for sensitive verifications.', setup: ['Install Signal CLI on your server', 'Register a Signal account', 'Link to your otp-Init instance', 'Connect via POST /channels/signal/connect'] },
+                { name: 'Signal', color: '#3a76f0', desc: 'Encrypted delivery from one Signal CLI sender account to many recipient numbers.', setup: ['Install the latest Signal CLI and Java 25', 'Link a dedicated Signal number with signal-cli link -n "otp-init"', 'Set SIGNAL_PHONE to the sender account in international format', 'Test with signal-cli ... send, then call POST /channels/signal/connect'] },
               ].map((ch) => (
                 <Box key={ch.name} sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 3, p: 3, mb: 2, '&:hover': { borderColor: ch.color } }}>
                   <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 1.5 }}>
@@ -406,7 +409,9 @@ if (result.verified) {
                       { variable: 'MAX_ATTEMPTS', def: '5', desc: 'Max verification attempts before lockout' },
                       { variable: 'WHATSAPP_TOKEN', def: 'none', desc: 'WhatsApp Business API token' },
                       { variable: 'TELEGRAM_BOT_TOKEN', def: 'none', desc: 'Telegram bot token from @BotFather' },
-                      { variable: 'SIGNAL_PHONE', def: 'none', desc: 'Signal CLI phone number' },
+                      { variable: 'SIGNAL_PHONE', def: 'none', desc: 'Signal CLI sender account; recipient numbers are supplied per request' },
+                      { variable: 'SIGNAL_CLI_PATH', def: 'signal-cli', desc: 'Signal CLI executable name or full path' },
+                      { variable: 'SIGNAL_CLI_TIMEOUT', def: '30', desc: 'Seconds before a Signal send is treated as failed' },
                       { variable: 'SECRET_KEY', def: 'change-me-in-production', desc: 'Secret key for signing and internal auth' },
                       { variable: 'WEBHOOK_SECRET', def: 'change-me-webhook-secret', desc: 'Secret for validating incoming webhooks' },
                       { variable: 'TELEGRAM_WEBHOOK_URL', def: '(empty)', desc: 'Public URL for Telegram webhook (e.g. https://your-domain.ngrok-free.dev)' },
@@ -438,7 +443,9 @@ WHATSAPP_TOKEN=your-whatsapp-business-token
 TELEGRAM_BOT_TOKEN=your-bot-token
 
 # Signal
-SIGNAL_PHONE=+14155550123`} />
+SIGNAL_PHONE=+2348012345678
+SIGNAL_CLI_PATH=signal-cli
+SIGNAL_CLI_TIMEOUT=30`} />
             </Box>
           </Grid>
         </Grid>

@@ -55,6 +55,9 @@ if not exist "apps\api\.env" (
         echo OTP_LENGTH=6
         echo OTP_TTL=300
         echo MAX_ATTEMPTS=5
+        echo SIGNAL_PHONE=
+        echo SIGNAL_CLI_PATH=signal-cli
+        echo SIGNAL_CLI_TIMEOUT=30
         echo CORS_ORIGINS=["http://localhost:3000","http://localhost:3001"]
         echo DEBUG=false
     ) > apps\api\.env

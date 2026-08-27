@@ -179,7 +179,9 @@ Copy `apps/api/.env.example` to `apps/api/.env` and fill in:
 | `WHATSAPP_TOKEN` | WhatsApp Business API token | Optional |
 | `TELEGRAM_BOT_TOKEN` | Telegram bot token from @BotFather | Optional |
 | `TELEGRAM_WEBHOOK_URL` | Public URL for Telegram webhook (e.g. ngrok URL) | Optional |
-| `SIGNAL_PHONE` | Signal CLI phone number | Optional |
+| `SIGNAL_PHONE` | Signal CLI sender account in international format (for example `+234...`) | Optional |
+| `SIGNAL_CLI_PATH` | `signal-cli` executable name or full path | `signal-cli` |
+| `SIGNAL_CLI_TIMEOUT` | Maximum seconds to wait for a send | `30` |
 | `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["http://localhost:3000", "http://localhost:3001"]` |
 | `WEBHOOK_SECRET` | Secret for validating incoming webhooks | `change-me-webhook-secret` |
 
@@ -189,7 +191,33 @@ Copy `apps/api/.env.example` to `apps/api/.env` and fill in:
 |---------|-------|------|
 | **WhatsApp** | Create a Meta Business account, set up WhatsApp Business API | Free |
 | **Telegram** | Create a bot via @BotFather, copy the token | Free |
-| **Signal** | Install Signal CLI on your server, register an account | Free |
+| **Signal** | Link or register one Signal CLI sender account; recipients can vary per request | Free |
+
+### Signal CLI setup
+
+Signal uses one configured sender account to deliver OTPs to many recipient numbers. The recipient is the `phone` value sent to `/api/verification/request`; do not add customer numbers to `.env`.
+
+For testing, use a dedicated Signal number. Register that number in Signal, then link the CLI device from the machine running the API:
+
+```powershell
+signal-cli link -n "otp-init"
+```
+
+Scan the displayed link from `Signal > Settings > Linked devices` on the phone. Keep the CLI account data on the same Windows user that runs the API. Test delivery directly:
+
+```powershell
+signal-cli -a "+2348012345678" send -m "VERIFY TEST123" "+2348098765432"
+```
+
+Then configure the sender in `apps/api/.env`:
+
+```env
+SIGNAL_PHONE=+2348012345678
+SIGNAL_CLI_PATH=signal-cli
+SIGNAL_CLI_TIMEOUT=30
+```
+
+The API sends automatically when the CLI command succeeds. If the CLI is unavailable, the response reports `manual_action_required` and retains a Signal deep link for manual testing. A Nigerian `+234` number should work if it can receive Signal's registration SMS or verification call.
 
 ## Security
 

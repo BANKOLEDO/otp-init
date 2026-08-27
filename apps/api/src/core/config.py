@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     TELEGRAM_BOT_TOKEN: str = ""
     TELEGRAM_WEBHOOK_URL: str = ""
     SIGNAL_PHONE: str = ""
+    SIGNAL_CLI_PATH: str = "signal-cli"
+    SIGNAL_CLI_TIMEOUT: int = 30
 
     CORS_ORIGINS: list[str] = Field(default=["http://localhost:3000", "http://localhost:3001"])
     DEBUG: bool = False

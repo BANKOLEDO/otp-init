@@ -61,11 +61,16 @@ class VerificationService:
         await db.commit()
         await db.refresh(verification)
 
+        delivery_status = "manual_action_required"
+        if channel == ChannelType.signal:
+            delivery_status = "sent" if await adapter.send_code(code, phone) else "manual_action_required"
+
         return VerificationResponse(
             verification_id=verification.id,
             deep_link=link_data["deep_link"],
-            message_preview="",
+            message_preview=link_data["message_preview"],
             expires_at=expires_at.isoformat(),
+            delivery_status=delivery_status,
         )
 
     async def verify_code(

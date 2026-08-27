@@ -15,6 +15,7 @@ class VerificationResponse(BaseModel):
     deep_link: str
     message_preview: str
     expires_at: str
+    delivery_status: str = "manual_action_required"
 
 
 class VerifyCodeRequest(BaseModel):

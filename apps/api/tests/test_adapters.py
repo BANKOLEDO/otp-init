@@ -66,3 +66,35 @@ class TestSignalAdapter:
         result = self.adapter.generate_verification_link("SIG456", "+987654321")
         assert "deep_link" in result
         assert "message_preview" in result
+
+    @pytest.mark.asyncio
+    async def test_send_code_uses_configured_sender(self, monkeypatch):
+        class FakeProcess:
+            returncode = 0
+
+            async def communicate(self):
+                return b"", b""
+
+        calls = {}
+
+        async def fake_create_subprocess_exec(*args, **kwargs):
+            calls["args"] = args
+            return FakeProcess()
+
+        monkeypatch.setattr(
+            "src.adapters.signal.asyncio.create_subprocess_exec",
+            fake_create_subprocess_exec,
+        )
+        monkeypatch.setattr("src.adapters.signal.settings.SIGNAL_PHONE", "+2348012345678")
+
+        sent = await self.adapter.send_code("ABC123", "+2348098765432")
+
+        assert sent is True
+        assert calls["args"][:5] == (
+            "signal-cli",
+            "-a",
+            "+2348012345678",
+            "send",
+            "-m",
+        )
+        assert calls["args"][-1] == "+2348098765432"

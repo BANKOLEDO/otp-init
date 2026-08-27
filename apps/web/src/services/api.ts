@@ -31,6 +31,7 @@ export interface VerificationResponse {
   deep_link: string;
   message_preview: string;
   expires_at: string;
+  delivery_status: 'sent' | 'manual_action_required';
 }
 
 export interface VerifyCodeResponse {
