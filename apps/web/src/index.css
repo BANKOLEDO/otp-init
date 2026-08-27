@@ -29,3 +29,18 @@ code, pre {
 
 body[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(238,237,232,0.12); }
 body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: rgba(238,237,232,0.2); }
+
+@media (max-width: 600px) {
+  .MuiTable-root {
+    min-width: 0 !important;
+    table-layout: fixed;
+  }
+  .MuiTableCell-root {
+    padding: 10px 8px !important;
+    font-size: 0.8125rem !important;
+    overflow-wrap: anywhere;
+  }
+  .MuiTableContainer-root {
+    overflow: hidden !important;
+  }
+}

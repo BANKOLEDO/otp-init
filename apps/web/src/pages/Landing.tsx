@@ -196,13 +196,18 @@ export function Landing() {
               Self-hosted OTP verification over WhatsApp, Telegram, and more.
               Zero per-message fees. Full data ownership. Ship in minutes.
             </Typography>
-            <Stack direction="row" spacing={2} justifyContent={{ xs: 'center', lg: 'flex-start' }}>
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={2}
+              justifyContent={{ xs: 'center', lg: 'flex-start' }}
+              alignItems={{ xs: 'center', sm: 'center' }}
+            >
               <Button
                 component={RouterLink}
                 to="/docs"
                 variant="contained"
                 endIcon={<RocketLaunch />}
-                sx={{ borderRadius: 999, px: 4, py: 1.5, fontSize: '0.95rem' }}
+                sx={{ borderRadius: 999, px: 4, py: 1.5, fontSize: '0.95rem', width: { xs: 'auto', sm: 'auto' } }}
               >
                 Get started
               </Button>
@@ -212,7 +217,7 @@ export function Landing() {
                 target="_blank"
                 variant="outlined"
                 endIcon={<OpenInNew />}
-                sx={{ borderRadius: 999, px: 4, py: 1.5, fontSize: '0.95rem' }}
+                sx={{ borderRadius: 999, px: 4, py: 1.5, fontSize: '0.95rem', width: { xs: 'auto', sm: 'auto' } }}
               >
                 View source
               </Button>

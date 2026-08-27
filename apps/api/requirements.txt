@@ -8,3 +8,4 @@ python-dotenv
 bcrypt
 python-multipart
 psutil
+httpx
