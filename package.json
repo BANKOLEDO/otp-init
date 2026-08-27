@@ -1,0 +1,24 @@
+{
+  "name": "otp-init",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Zero-cost, self-hosted OTP verification via WhatsApp, Telegram, or Signal",
+  "scripts": {
+    "dev:web": "pnpm --filter @otp-init/web dev",
+    "dev:admin": "pnpm --filter @otp-init/admin dev",
+    "dev:api": "cd apps/api && python -m uvicorn src.main:app --reload --port 8000",
+    "dev": "concurrently \"pnpm dev:api\" \"pnpm dev:web\" \"pnpm dev:admin\"",
+    "build:web": "pnpm --filter @otp-init/web build",
+    "build:admin": "pnpm --filter @otp-init/admin build",
+    "build": "pnpm build:web && pnpm build:admin",
+    "lint:web": "pnpm --filter @otp-init/web lint",
+    "lint:admin": "pnpm --filter @otp-init/admin lint",
+    "test:web": "pnpm --filter @otp-init/web test",
+    "test:admin": "pnpm --filter @otp-init/admin test",
+    "test:api": "cd apps/api && python -m pytest tests/ -v",
+    "test": "pnpm test:web && pnpm test:admin && pnpm test:api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
