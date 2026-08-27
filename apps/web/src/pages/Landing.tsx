@@ -342,7 +342,7 @@ export function Landing() {
           <Grid container spacing={3}>
             {featureItems.map((f, i) => (
               <Grid item xs={12} sm={6} md={i < 2 ? 6 : 4} key={f.title}>
-                <Box sx={{ border: hairline, borderRadius: 3, p: 4, height: '100%', transition: 'border-color 0.2s', '&:hover': { borderColor: 'primary.main' }, ...revealSx(features.visible, `${i * 80}ms`) }}>
+                <Box sx={{ border: hairline, borderRadius: 3, p: 4, height: '100%', '&:hover': { borderColor: 'primary.main' }, ...revealSx(features.visible, `${i * 80}ms`) }}>
                   <Box sx={{ color: 'primary.main', mb: 2 }}>{f.icon}</Box>
                   <Typography variant="h6" sx={{ fontSize: '1.05rem', fontWeight: 500, mb: 1 }}>{f.title}</Typography>
                   <Typography variant="body2" sx={{ fontSize: '0.9rem', lineHeight: 1.6, color: subtleText }}>{f.desc}</Typography>

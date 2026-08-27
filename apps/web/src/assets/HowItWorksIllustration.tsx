@@ -2,8 +2,8 @@ import Box from '@mui/material/Box';
 import useTheme from '@mui/material/styles/useTheme';
 
 export function HowItWorksIllustration() {
-  const { mode } = useTheme();
-  const isDark = mode === 'dark';
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
 
   const stroke = isDark ? 'rgba(238,237,232,0.15)' : 'rgba(26,24,22,0.1)';
   const fill = isDark ? 'rgba(238,237,232,0.04)' : 'rgba(26,24,22,0.03)';
